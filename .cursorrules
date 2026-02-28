@@ -1,0 +1,20 @@
+# This file defines rules and restrictions for Cursor's AI features.
+
+# Block access to sensitive files or directories
+# Cursor will not be able to read or modify these files.
+
+# Example: Block access to environment files and credentials
+.env
+.env.local
+.env.example
+credentials.json
+secrets/
+
+# Block access to large or irrelevant directories
+node_modules/
+.git/
+dist/
+build/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
