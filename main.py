@@ -3,6 +3,13 @@ import logging
 from typing import List, Dict, Any
 from dotenv import load_dotenv
 
+from pydantic import BaseModel,Field
+from langchain.agents import create_agent
+from langchain.tools import tool
+from langchain_core.messages import HumanMessage, BaseMessage
+from langchain_ollama import ChatOllama
+from langchain_tavily import TavilySearch
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -12,11 +19,18 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
-from langchain.agents import create_agent
-from langchain.tools import tool
-from langchain_core.messages import HumanMessage, BaseMessage
-from langchain_ollama import ChatOllama
-from langchain_tavily import TavilySearch
+
+class Source(BaseModel):
+    """Schema for source used by the angent"""
+
+    url:str = Field(description="The URL of the source")
+
+class AgentResponse(BaseModel):
+    """Schema for agent response with answer and sources"""
+
+    asnwer:str = Field(description="Agent's answert to the query")
+    sources:list[Source] = Field(default_factory=list,description="List of sources that generated the answer")
+
 
 def get_config() -> Dict[str, str]:
     """Retrieve and validate configuration from environment variables."""
@@ -40,7 +54,7 @@ def initialize_agent(config: Dict[str, str]):
             temperature=0.1,
             model=config["ollama_model"]
         )
-        return create_agent(llm, tools)
+        return create_agent(llm, tools,response_format=AgentResponse)
     except Exception as e:
         logger.error(f"Failed to initialize agent: {e}")
         raise
