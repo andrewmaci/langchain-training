@@ -1,5 +1,5 @@
 [project]
-name = "langchain-hello-world"
+name = "langchain-testing"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -12,9 +12,5 @@ dependencies = [
 ]
 
 [tool.pyright]
-venvPath="."
-venv = ".venv"
-
-[tool.basedpyright]
 venvPath="."
 venv = ".venv"
