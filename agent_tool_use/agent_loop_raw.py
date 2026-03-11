@@ -1,6 +1,6 @@
 import os
 import logging
-from typing import Dict
+from typing import Callable, Dict
 from enum import Enum
 from dataclasses import dataclass
 from dotenv import load_dotenv
@@ -134,7 +134,7 @@ llm_tools_schema = [
   ]
 
 
-def get_llm_tools()->dict[str,callable]:
+def get_llm_tools()->dict[str,Callable]:
     return {
         "get_product_price":get_product_price,
         "apply_discount":apply_discount
