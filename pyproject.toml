@@ -10,6 +10,7 @@ dependencies = [
     "langchain>=1.2.10",
     "langchain-community>=0.4.1",
     "langchain-ollama>=1.0.1",
+    "langchain-openai>=1.1.11",
     "langchain-tavily>=0.2.17",
     "langchain-weaviate>=0.0.6",
     "langgraph>=1.0.10",
